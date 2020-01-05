@@ -1,12 +1,16 @@
 {
+  
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "es2015",
-    "target": "es5",
+    "target": "es6",
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": false
   },
   "include": [
     "./src/**/*"

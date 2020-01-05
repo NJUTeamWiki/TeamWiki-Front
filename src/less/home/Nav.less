@@ -1,0 +1,65 @@
+.nav {
+    padding-top: 1%;
+    height: 10%;
+    background: rgba(255, 255, 255, 0.5);
+    .menu {
+        font-size  : 18px;
+        font-family: "Roboto", sans-serif;
+        width      : 77%;
+        display    : inline-block;
+        font-weight: 600;
+        text-align : center;
+
+        span {
+            margin-left: 150px;
+            padding    : 10px 15px;
+            cursor     : pointer;
+            display    : inline-block;
+
+            &:hover {
+
+                transform: translateY(-3px);
+            }
+        }
+
+        .selected {
+            //background-color   : #4358EA;
+            // background-color: #E13629;
+             background-color: #F4B840;
+            // background-color: #CECECE;
+            color              : white;
+            
+        }
+
+        .image {
+            width       : 13%;
+            padding-left: 5%;
+            height      : auto;
+            display     : inline-block;
+            
+        }
+    }
+    .log{
+        display: inline;
+        margin-left: 6%;
+        button{
+            background-color: #E13629 ;
+            border-color: #E13629;
+            font-family: "Roboto", sans-serif;
+            &:hover {
+                transform: translateY(-3px);
+            }
+        }
+    }
+
+}
+
+@keyframes Updown {
+    from {
+        transform: translate(0, 0)
+    }
+
+    to {
+        transform: translate(0, 6px)
+    }
+}

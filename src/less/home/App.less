@@ -1,0 +1,51 @@
+.app {
+    width           : 100%;
+    height          : 100%;
+    background-image: url(../../static/img/home/bg_web.jpg);
+    #searchIcon {
+        line-height: 70px;
+
+        svg {
+            width : 20px;
+            height: 20px;
+        }
+    }
+    .content {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.5);
+        display: flex;
+        justify-content: center;
+        padding-top: 12%;
+        /* align-items: center; */
+        height: 90%;
+        .title{
+            font-size: 42px;
+            padding-bottom: 30px;
+            font-family: "Roboto", sans-serif;
+        }
+        .intro{
+            font-size:25px;
+            font-family: "Roboto", sans-serif;
+        }
+        .button{
+            button{
+                width: 200px;
+                height: 54px;
+                font-size: 23px;
+                margin-top: 150px;
+                background-color: #E13629 ;
+                border-color: #E13629;
+                color: white;
+                font-family: "Roboto", sans-serif;
+                &:hover {
+                    transform: translateY(-3px);
+                }
+            }
+        }
+
+    }
+
+    .anticon anticon-search {
+        line-height: 70px;
+    }
+}

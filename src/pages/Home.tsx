@@ -16,7 +16,7 @@ class Home extends React.Component {
       // <Router>
       <div className='home'>
           <Nav  />
-         
+         {this.props.children}
       </div>
       // </Router>
     )

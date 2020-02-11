@@ -9,6 +9,7 @@ import Register from './pages/Register'
 import Development from './pages/Development'
 import Workflow from './pages/Workflow'
 import Share from './pages/Share'
+import Knowledge from './pages/Knowledge'
 import It from './pages/It'
 import Programming from './pages/Programming'
 
@@ -20,14 +21,15 @@ const Root = () => {
         <Route path={`/home`} render={ (props: any) => 
             <Home>
               <Switch>
-              <Route exact path="/home/company" component={Company} />
+              <Route exact path="/home/" component={Company} />
+              <Route exact path="/home/knowledge" component={Knowledge} />
               <Route exact path="/home/it" component={It} />
               <Route exact path="/home/programming" component={Programming} />
               <Route exact path="/home/development" component={Development} />
               <Route exact path="/home/workflow" component={Workflow} />
               <Route exact path="/home/share" component={Share} />
 
-              <Route path="/home/link" component={Link} />
+              <Route path="/home/portal" component={Link} />
               
               </Switch>
             </Home>

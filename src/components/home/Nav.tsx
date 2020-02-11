@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Dropdown, Icon, Avatar, Button } from 'antd';
+import { Menu, Dropdown, Icon, Avatar, Button,Row } from 'antd';
 import WebIcon from '../../static/img/home/web-icon.png'
 import '../../less/home/nav.less'
 import { hashHistory, withRouter } from 'react-router-dom'
@@ -23,10 +23,13 @@ class Nav extends React.Component {
         return 'knowledge';
       case 'workflow':
         return 'knowledge';
-      case 'link':
-        return 'link';
       case 'share':
-        return 'share'
+        return 'share';
+      case 'portal':
+        return 'portal';
+        case 'knowledge':
+        return 'knowledge';
+      
 
     }
   }
@@ -51,16 +54,18 @@ class Nav extends React.Component {
     </Menu>)
     return (
       <div className='nav'>
-        <img src={WebIcon} className="image" />
+        <img src={WebIcon} className="image" onClick={()=>{this.props.history.push("/home")}} />
         <div className="menu" style={{ visibility: this.props.showmenu }}>
-          <Dropdown overlay={DayMenu} onClick={this.handleClick.bind(this, "first", 'company')} className={current == "first" ? "selected" : ""} >
+          {/* <Dropdown overlay={DayMenu} onClick={this.handleClick.bind(this, "first", 'company')} className={current == "first" ? "selected" : ""} >
             <span>First Day</span>
-          </Dropdown>
-          <Dropdown overlay={KnowMenu} onClick={this.handleClick.bind(this, "knowledge", 'development')} className={current == "knowledge" ? "selected" : ""} >
-            <span>Knowledge</span>
-          </Dropdown>
+          </Dropdown> */}
+          {/* <div style={{float:"right"}}> */}
+          {/* <Dropdown overlay={KnowMenu} onClick={this.handleClick.bind(this, "knowledge", 'development')} className={current == "knowledge" ? "selected" : ""} > */}
+            <span onClick={this.handleClick.bind(this, "knowledge", 'knowledge')} className={current == "knowledge" ? "selected" : ""}>Knowledge</span>
+          {/* </Dropdown> */}
           <span onClick={this.handleClick.bind(this, "share", 'share')} className={current == "share" ? "selected" : ""}  >Share</span>
-          <span onClick={this.handleClick.bind(this, "link", 'link')} className={current == "link" ? "selected" : ""}  >Link</span>
+          <span onClick={this.handleClick.bind(this, "portal", 'portal')} className={current == "portal" ? "selected" : ""}  >Portal</span>
+          
         </div>
         <div className="log">
           <Button type="primary" shape="round" onClick={()=>{this.props.history.push('/login')} } >LOG</Button>

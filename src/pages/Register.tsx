@@ -6,6 +6,7 @@ import {
   hashHistory
 } from "react-router-dom";
 import '../less/login.less'
+import * as LoginService from '../services/loginService'
 @withRouter
 class Register extends React.Component {
   constructor(props: any) {
@@ -20,6 +21,8 @@ class Register extends React.Component {
     this.props.form.validateFields((err: any, values: any) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        let res = LoginService.sign(values)
+        console.log(res);
       }
     });
     this.props.history.push('/home/company')
@@ -52,7 +55,16 @@ class Register extends React.Component {
         <div className="content">
         <div className="login">
       <Form onSubmit={this.handleSubmit} className="login-form">
-       
+      <Form.Item label="Email">
+          {getFieldDecorator('email', {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your email!',
+              },
+            ],
+          })(<Input />)}
+        </Form.Item>
         <Form.Item label="Username">
           {getFieldDecorator('username', {
             rules: [

@@ -1,10 +1,11 @@
 import React, { Children } from "react";
 import Web from '../static/img/home/bg_web.jpg'
-import { Button, List, Typography, Carousel, Menu, Icon } from 'antd'
+import { Button, List, Typography, Carousel, Menu, Icon,Avatar } from 'antd'
 import { Row, Col } from 'antd'
 const { SubMenu } = Menu
+import Card from '../components/Card'
 import ListFile from '../components/ListFile'
-import '../less/company.less'
+import '../less/firstday/home.less'
 import FileUpload from '../components/FileUpload'
 class Company extends React.Component {
     constructor(props: any) {
@@ -13,61 +14,54 @@ class Company extends React.Component {
     }
     
     render() {
-        const data = [
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-        ];
         return (
-            <Row className="company">
-                <Carousel autoplay>
-                    <div>
-                        <img className="img" src={Web} />
-                    </div>
-                    <div>
-                        <img className="img" src={Web} />
-                    </div>
-                    <div>
-                        <img className="img" src={Web} />
-                    </div>
-                    <div>
-                        <img className="img" src={Web} />
-                    </div>
-                </Carousel>
-                <Row className="content_company">
-                    <Col span={4} style={{ height:'100%' }}>
-                        <Menu
-                            style={{ width: 256,height:'100%' }}
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            mode={'inline'}
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="mail" />
-                                Navigation One
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="calendar" />
-                                Navigation Two
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="calendar" />
-                                Navigation Three
-                            </Menu.Item>
-                            <Menu.Item key="4">
-                                <Icon type="calendar" />
-                                Navigation Four
-                            </Menu.Item>
-                           
-                        </Menu>
-                    </Col>
-                    <Col span={20} className="list">
-                       <ListFile />
-                    </Col>
-                </Row>
+            <Row className="home_page">
+            <Row className="home_first">
+              <Row className="title">
+                <Row>Welcome to XXX!</Row>
+                <Row>This is the team introduction. Can be edited by administrator.</Row>
+              </Row>
+              
             </Row>
+            <Row className="member">
+                  <Row className="title">Team Members</Row>
+                  <Row className="item">
+                        <Col span={3} className="title">Leader</Col>
+                        <Col span={20}>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                        </Col>
+                   </Row>
+                   <Row className="item">
+                        <Col span={3} className="title">Guru</Col>
+                        <Col span={20}>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                        </Col>
+                   </Row>
+                   <Row className="item">
+                        <Col span={3} className="title">NewComer</Col>
+                        <Col span={20}>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                            <Row className="item_avatar"><Avatar src={Web} size={50} /><span>zhangchi</span></Row>
+                        </Col>
+                   </Row>
+                  
+              </Row>
+              <Row className="recommend">
+                    <Row className="title">Recommend Reading</Row>
+                    <Row className="cardlist">
+                        <Card/>
+                        <Card/>
+                        <Card/>
+                        <Card/>
+                    </Row>
+                 
+              </Row>
+              </Row>
 
 
         )

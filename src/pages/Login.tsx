@@ -5,6 +5,7 @@ import {
   withRouter,
   hashHistory
 } from "react-router-dom";
+import * as LoginService from '../services/loginService'
 import '../less/login.less'
 @withRouter
 class Login extends React.Component {
@@ -17,9 +18,11 @@ class Login extends React.Component {
     this.props.form.validateFields((err: any, values: any) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        let data = LoginService.login(values);
+        this.props.history.push('/home/company')
       }
     });
-    this.props.history.push('/home/company')
+   
   };
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -28,11 +31,11 @@ class Login extends React.Component {
         <div className="login">
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+          {getFieldDecorator('email', {
+            rules: [{ required: true, message: 'Please input your email!' }],
           })(
             <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<Icon type="email" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="Username"
             />,
           )}

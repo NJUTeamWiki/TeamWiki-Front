@@ -1,23 +1,25 @@
 import { serverIP } from '../utils/GlobalConstants' 
-export function login(data: any) {
-    return fetch(`${serverIP}/user/sign_in`, {
-        method: 'POST',
+import {hashHistory} from 'react-router-dom'
+export function getKnowledgelist() {
+    return fetch(`${serverIP}/knowledge`, {
+        method: 'GET',
         mode: "cors",
         headers: new Headers({
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
         }),
-        body:JSON.stringify(data)
-
-    }).then(res => res.json()).then((json) => {
        
+
+    }).then(res => res.json()).then((json) => {   
+        debugger;
+        hashHistory.push('/login') 
         return json
     }).catch((err) => {
         return err
     })
 }
-export function sign(data: any) {
-    return fetch(`${serverIP}/user/sign_up`, {
+export function createKnowledge(data:any){
+    return fetch(`${serverIP}/knowledge`, {
         method: 'POST',
         mode: "cors",
         headers: new Headers({
@@ -26,8 +28,7 @@ export function sign(data: any) {
         }),
         body:JSON.stringify(data)
 
-    }).then(res => res.json()).then((json) => {
-        
+    }).then(res => res.json()).then((json) => {    
         return json
     }).catch((err) => {
         return err

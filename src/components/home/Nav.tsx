@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu, Dropdown, Icon, Avatar, Button,Row } from 'antd';
 import WebIcon from '../../static/img/home/web-icon.png'
+import Ava from '../../static/img/home/bg_web.jpg'
 import '../../less/home/nav.less'
 import { hashHistory, withRouter } from 'react-router-dom'
 const { SubMenu } = Menu;
@@ -8,7 +9,19 @@ const { SubMenu } = Menu;
 class Nav extends React.Component {
   state = {
     current: this.getCurrent(),
+    visible:false,
+    userdata:localStorage.getItem("user")
   };
+  handleMenuClick = e => {
+    // if (e.key === '3') {
+    //   this.setState({ visible: false });
+    // }
+  };
+
+  handleVisibleChange = flag => {
+    this.setState({ visible: flag });
+  };
+
   getCurrent() {
     console.log(this.props);
     let location = this.props.history.location.pathname.split('/')
@@ -43,16 +56,15 @@ class Nav extends React.Component {
   };
   render() {
     const { current } = this.state
-    const DayMenu = (<Menu >
-      <Menu.Item key="1" onClick={this.handleClick.bind(this, "first", "company")}>公司相关</Menu.Item>
-      <Menu.Item key="2" onClick={this.handleClick.bind(this, "first", "it")}>IT相关</Menu.Item>
-      <Menu.Item key="3" onClick={this.handleClick.bind(this, "first", "programming")}>编程相关</Menu.Item>
-    </Menu>)
-    const KnowMenu = (<Menu >
-      <Menu.Item key="4" onClick={this.handleClick.bind(this, "knowledge", 'development')}>开发相关</Menu.Item>
-      <Menu.Item key="5" onClick={this.handleClick.bind(this, "knowledge", 'workflow')}>Workflow介绍</Menu.Item>
-    </Menu>)
+     const menu = (
+      <Menu onClick={this.handleMenuClick}>
+        <Menu.Item key="1">个人中心</Menu.Item>
+        <Menu.Item key="2" onClick={()=>{localStorage.removeItem("user"),this.setState({userdata:""})}}>登出</Menu.Item>
+      </Menu>
+    );
+        
     return (
+    
       <div className='nav'>
         <img src={WebIcon} className="image" onClick={()=>{this.props.history.push("/home")}} />
         <div className="menu" style={{ visibility: this.props.showmenu }}>
@@ -68,8 +80,14 @@ class Nav extends React.Component {
           
         </div>
         <div className="log">
-          <Button type="primary" shape="round" onClick={()=>{this.props.history.push('/login')} } >LOG</Button>
-        </div>
+           {this.state.userdata?
+           <Dropdown overlay={menu} onClick={this.handleClick.bind(this, "first", 'company')} className={current == "first" ? "selected" : ""} >
+             <Avatar src={Ava} size={40} />
+         </Dropdown>
+         :
+         <Button type="primary" shape="round" onClick={()=>{this.props.history.push('/login')} } >LOG</Button>
+          }
+           </div>
       </div>
     )
   }

@@ -1,18 +1,31 @@
-.company {
-    padding: 0 10%;
-    .img {
-        height: 500px;
-        width : 100%;
-    }
 
-    .content_company {
+
+.filelist {
+    padding: 0 10%;
+    height: 90% !important;
+    .content_filelist {
         border: 1px solid #dfdfdf;
-        height: 374px;
+        height: 100%;
+        .upload_modal{
+            display: inline-block;
+            float: right;
+        }
+        .title{
+            padding: 30px 40px 0px;
+
+            .selected{
+                background-color: #1890ff;
+                color: white;
+            }
+            .upload_button{
+                float: right;
+            }
+        }
 
         .ant-list-bordered {
             border: 0px;
         }
-
+        
         .ant-menu {
            
         }
@@ -66,13 +79,3 @@
         }
 }
 }
-
-// .ant-carousel .slick-slide {
-//     text-align: center;
-//     height    : 160px;
-//     overflow  : hidden;
-// }
-
-// .ant-carousel .slick-slide h3 {
-//     color: #fff;
-// }

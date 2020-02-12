@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, List, Typography, Dropdown,Carousel, Menu, Icon } from 'antd'
 import '../less/list.less'
 class ListFile  extends React.Component{
+  
     render(){
         const data = [
             'The employee handbook.doc',

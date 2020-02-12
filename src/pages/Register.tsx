@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox,message } from 'antd';
 import {
   BrowserRouter as Router, IndexRoute,
   withRouter,
@@ -21,11 +21,19 @@ class Register extends React.Component {
     this.props.form.validateFields((err: any, values: any) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        let res = LoginService.sign(values)
-        console.log(res);
+        LoginService.sign(values).then(res=>{
+          if(res.code==1){
+            localStorage.setItem("user",JSON.stringify(res.data));
+            this.props.history.push('/home')
+            message.success("注册成功");
+          }
+          else{
+            message.error(res.msg);
+          }
+        })
       }
     });
-    this.props.history.push('/home/company')
+   
   };
   handleConfirmBlur = e => {
     const { value } = e.target;
@@ -60,6 +68,7 @@ class Register extends React.Component {
             rules: [
               {
                 required: true,
+                type: 'email',
                 message: 'Please input your email!',
               },
             ],

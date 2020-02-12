@@ -1,15 +1,19 @@
 import React, { Children } from "react";
 import Web from '../static/img/home/bg_web.jpg'
 import { Button, List, Typography, Carousel, Menu, Icon } from 'antd'
+const ButtonGroup = Button.Group
 import { Row, Col } from 'antd'
 const { SubMenu } = Menu
 import ListFile from '../components/ListFile'
-import '../less/company.less'
-import FileUpload from '../components/FileUpload'
-class Workflow extends React.Component {
+import '../less/filelist.less'
+import UploadFileModal from '../components/UploadFileModal'
+
+class FileList extends React.Component {
     constructor(props: any) {
         super(props)
-        this.state = {}
+        this.state = {
+            selected:'list'
+        }
     }
     
     render() {
@@ -21,10 +25,16 @@ class Workflow extends React.Component {
             'The employee handbook.doc',
         ];
         return (
-            <Row className="company">
-                
-                <Row className="content_company">
-                    <Col span={4} style={{ height:'100%' }}>
+            <Row className="filelist"> 
+                <Row className="content_filelist">
+                <Row className="title">
+                <ButtonGroup>
+                    <Button className={this.state.selected=="list"?"selected":""} onClick={()=>{this.setState({selected:"list"})}} >List</Button>
+                    <Button className={this.state.selected=="icon"?"selected":""} onClick={()=>{this.setState({selected:"icon"})}}>Icon</Button>
+                </ButtonGroup> 
+                <UploadFileModal />
+                </Row>     
+                    {/* <Col span={4} style={{ height:'100%' }}>
                         <Menu
                             style={{ width: 256,height:'100%' }}
                             defaultSelectedKeys={['1']}
@@ -49,8 +59,8 @@ class Workflow extends React.Component {
                             </Menu.Item>
                            
                         </Menu>
-                    </Col>
-                    <Col span={20} className="list">
+                    </Col> */}
+                    <Col span={24} className="list">
                        <ListFile />
                     </Col>
                 </Row>
@@ -61,4 +71,4 @@ class Workflow extends React.Component {
     }
 }
 
-export default Workflow
+export default FileList

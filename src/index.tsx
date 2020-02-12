@@ -7,7 +7,7 @@ import Login from './pages/Login'
 import Company from './pages/Company'
 import Register from './pages/Register'
 import Development from './pages/Development'
-import Workflow from './pages/Workflow'
+import FileList from './pages/FileList'
 import Share from './pages/Share'
 import Knowledge from './pages/Knowledge'
 import It from './pages/It'
@@ -26,7 +26,7 @@ const Root = () => {
               <Route exact path="/home/it" component={It} />
               <Route exact path="/home/programming" component={Programming} />
               <Route exact path="/home/development" component={Development} />
-              <Route exact path="/home/workflow" component={Workflow} />
+              <Route exact path="/home/filelist" component={FileList} />
               <Route exact path="/home/share" component={Share} />
 
               <Route path="/home/portal" component={Link} />

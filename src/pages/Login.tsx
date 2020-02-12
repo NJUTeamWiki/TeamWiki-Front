@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox ,message} from 'antd';
 import {
   BrowserRouter as Router, IndexRoute,
   withRouter,
@@ -18,8 +18,16 @@ class Login extends React.Component {
     this.props.form.validateFields((err: any, values: any) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        let data = LoginService.login(values);
-        this.props.history.push('/home/company')
+        LoginService.login(values).then(res=>{
+          if(res.code==1){
+            localStorage.setItem("user",JSON.stringify(res.data));
+            this.props.history.push('/home')
+            message.success("登录成功");
+          }
+          else{
+            message.error(res.msg);
+          }
+        })
       }
     });
    
@@ -32,11 +40,11 @@ class Login extends React.Component {
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
           {getFieldDecorator('email', {
-            rules: [{ required: true, message: 'Please input your email!' }],
+            rules: [{  type: 'email',required: true, message: 'Please input your email!' }],
           })(
             <Input
-              prefix={<Icon type="email" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Username"
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="Email"
             />,
           )}
         </Form.Item>

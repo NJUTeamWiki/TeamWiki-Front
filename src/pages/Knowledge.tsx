@@ -16,18 +16,17 @@ class Knowledge extends React.Component{
         
           handleOk = e => {
             console.log(e);
-            console.log(this.refs.name);
+            console.log(this.refs.name.state.value);
             let data={
                 "categoryId":this.state.category,
-                "knowledgeName":"name"
+                "knowledgeName":this.refs.name.state.value,
             }
             KnowledgeService.createKnowledge(data).then(res=>{
                 if(res.code==1){
                     console.log("添加成功")
                     this.getKnowledgeList();
                 }
-            }
-                  
+            }    
                 )
             this.setState({
               visible: false,
@@ -45,11 +44,16 @@ class Knowledge extends React.Component{
        this.getKnowledgeList()
     }
     getKnowledgeList=()=>{
+        // KnowledgeService.getKnowledgelist().then(res=>{
+        //     console.log(res);
+        //     this.setState({
+        //         knowledgelist:res.data
+        //     })
+        // })
         KnowledgeService.getKnowledgelist().then(res=>{
-            console.log(res);
             this.setState({
-                knowledgelist:res.data
-            })
+                      knowledgelist:res.data
+                   })
         })
     }
     render(){
@@ -58,9 +62,9 @@ class Knowledge extends React.Component{
             <Row className="knowledge">
                 <Row className="firstday">
                     <Row className="title">First Day<Icon className="icon" onClick={this.showModal.bind(this,1)} type="plus-circle" /></Row>
-                    <Row className="itemlist" onClick={()=>{this.props.history.push("filelist")}}>
-                        {knowledgelist.filter((item)=>item.category==1).map((item,index)=>
-                        <Col span={8} key={index} className="item"><Row className="name">{item.kname}</Row></Col>
+                    <Row className="itemlist" >
+                        {knowledgelist&&knowledgelist.filter((item)=>item.category==1).map((item,index)=>
+                        <Col span={8} key={index} onClick={()=>{this.props.history.push(`filelist?name=${item.kname}&&id=${item.kid}`)}} className="item"><Row className="name">{item.kname}</Row></Col>
                         )}
                         {/* <Col span={8} className="item"><Row className="name">Company Introduction</Row></Col>
                         <Col span={8} className="item"><Row className="name">Team  Introduction</Row></Col>
@@ -74,7 +78,7 @@ class Knowledge extends React.Component{
                 <Row className="firstday">
                     <Row className="title">Workflow<Icon className="icon" onClick={this.showModal.bind(this,2)} type="plus-circle" /></Row>
                     <Row className="itemlist">
-                    {knowledgelist.filter((item)=>item.category==2).map((item,index)=>
+                    {knowledgelist&&knowledgelist.filter((item)=>item.category==2).map((item,index)=>
                         <Col span={8} key={index} className="item"><Row className="name">{item.kname}</Row></Col>
                         )}
                     </Row>
@@ -83,7 +87,6 @@ class Knowledge extends React.Component{
                     <Row className="title">Books</Row>
                     <Row className="itemlist">
                         <Col span={8} className="item"><Row className="name">Head First Java</Row></Col>
-                        
                     </Row>
                 </Row>
                     <Modal

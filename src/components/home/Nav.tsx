@@ -34,7 +34,7 @@ class Nav extends React.Component {
         return 'first';
       case 'development':
         return 'knowledge';
-      case 'workflow':
+      case 'filelist':
         return 'knowledge';
       case 'share':
         return 'share';

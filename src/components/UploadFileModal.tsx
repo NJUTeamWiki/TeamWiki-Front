@@ -32,14 +32,16 @@ class UploadFileModal extends React.Component{
     };
   
     handleOk = e => {
-      let data = new FormData();
+     
       if(this.state.fileList.length==0){
           message.error("未选择文件")
       }
       else{
-        data.append("file",this.state.fileList[0])
-        data.append("sourceId","1"),
-        data.append("sourceType","0"),
+        let data={"file":this.state.fileList[0],
+        "knowledgeId":"1"}
+        let formdata = new FormData();
+        formdata.append("file",this.state.fileList[0])
+        formdata.append("knowledgeId","1")
         uploadService.uploadfile(data).then(res=>{
             console.log(res);
             this.setState({

@@ -18,16 +18,17 @@ class Login extends React.Component {
     this.props.form.validateFields((err: any, values: any) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        LoginService.login(values).then(res=>{
-          if(res.code==1){
-            localStorage.setItem("user",JSON.stringify(res.data));
-            this.props.history.push('/home')
-            message.success("登录成功");
-          }
-          else{
-            message.error(res.msg);
-          }
-        })
+       LoginService.login(values).then(res=>{
+        if(res.code==1){
+          localStorage.setItem("user",JSON.stringify(res.data));
+          this.props.history.push('/home')
+          message.success("登录成功");
+        }
+        else{
+          message.error(res.msg);
+        }
+       
+       })
       }
     });
    

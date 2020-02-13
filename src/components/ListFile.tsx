@@ -1,22 +1,21 @@
 import React from 'react'
 import { Button, List, Typography, Dropdown,Carousel, Menu, Icon } from 'antd'
+import * as FileService from '../services/fileService'
 import '../less/list.less'
 class ListFile  extends React.Component{
-  
+  deletefile = (data)=>{
+    FileService.deletefile(data.did).then(res=>{
+        this.props.refresh();
+    })
+  }
     render(){
-        const data = [
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-        ];
+        let data = this.props.data;
         const menu = (
             <Menu>
               <Menu.Item>
                 <a  >
                  更新
-                </a>
+                </a>  
               </Menu.Item>
               <Menu.Item>
                 <a>
@@ -31,11 +30,14 @@ class ListFile  extends React.Component{
             bordered
             dataSource={data}
             renderItem={(item: any) => (
-                <List.Item actions={[<a key="list-loadmore-edit"><Dropdown overlay={menu} placement="bottomLeft">
+                <List.Item actions={[<a key="list-loadmore-edit" onClick={this.deletefile.bind(this,item)}>
+                  {/* <Dropdown overlay={menu} placement="bottomLeft">
                 <Icon type="form" />
-              </Dropdown></a>]}
+              </Dropdown> */}
+              <Icon type="delete" />
+              </a>]}
                 >
-                    <Typography.Text mark>i</Typography.Text> {item}
+                    <Typography.Text mark>i</Typography.Text> {item.dname}
                 </List.Item>
             )}
         />

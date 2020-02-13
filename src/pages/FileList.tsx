@@ -1,32 +1,57 @@
 import React, { Children } from "react";
 import Web from '../static/img/home/bg_web.jpg'
-import { Button, List, Typography, Carousel, Menu, Icon } from 'antd'
+import { Button, List, Typography, Carousel, Menu, Icon,Breadcrumb } from 'antd'
 const ButtonGroup = Button.Group
 import { Row, Col } from 'antd'
 const { SubMenu } = Menu
+import * as FileService from '../services/fileService'
+import Card from '../components/Card'
 import ListFile from '../components/ListFile'
 import '../less/filelist.less'
 import UploadFileModal from '../components/UploadFileModal'
-
+ 
 class FileList extends React.Component {
     constructor(props: any) {
         super(props)
+        console.log(props)
         this.state = {
-            selected:'list'
+            filelist:[],
+            selected:'list',
+            name:this.getQueryVariable("name"),
+            id:this.getQueryVariable("id")
         }
     }
-    
-    render() {
-        const data = [
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-        ];
+    componentWillMount(){
+          this.getknowledgefilelist()
+    }
+    getknowledgefilelist = ()=>{
+        FileService.getknowledgefilelist(this.state.id).then(res=>{
+            console.log(res);
+            this.setState({
+                filelist:res.data
+            })
+        })
+    }
+    getQueryVariable = (variable)=>{
+            var query = this.props.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if(pair[0] == variable){return decodeURI(pair[1]);}
+            }
+            return(false);
+    }
+    render() {   
         return (
             <Row className="filelist"> 
                 <Row className="content_filelist">
+                <Row > <Breadcrumb className="breadcrumb">
+                        <Breadcrumb.Item><a onClick={()=>{this.props.history.push("knowledge")}}>Knowledge</a></Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                         <span style={{color:"#2587ff"}}>{this.state.name}</span> 
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                </Row>
                 <Row className="title">
                 <ButtonGroup>
                     <Button className={this.state.selected=="list"?"selected":""} onClick={()=>{this.setState({selected:"list"})}} >List</Button>
@@ -34,34 +59,15 @@ class FileList extends React.Component {
                 </ButtonGroup> 
                 <UploadFileModal />
                 </Row>     
-                    {/* <Col span={4} style={{ height:'100%' }}>
-                        <Menu
-                            style={{ width: 256,height:'100%' }}
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            mode={'inline'}
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="mail" />
-                                Navigation One
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="calendar" />
-                                Navigation Two
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="calendar" />
-                                Navigation Three
-                            </Menu.Item>
-                            <Menu.Item key="4">
-                                <Icon type="calendar" />
-                                Navigation Four
-                            </Menu.Item>
-                           
-                        </Menu>
-                    </Col> */}
+                   
                     <Col span={24} className="list">
-                       <ListFile />
+                      {this.state.selected=="list"?
+                      <ListFile data={this.state.filelist} refresh={this.getknowledgefilelist}/>:
+                      <Row className="cardlist">
+                       {this.state.filelist&&this.state.filelist.map( (item)=><Card content={item} />)
+                        }
+                    </Row>
+                      }
                     </Col>
                 </Row>
             </Row>

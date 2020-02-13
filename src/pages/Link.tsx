@@ -1,6 +1,11 @@
 import React, { Children } from "react";
 import GitHub from '../static/img/home/github.jpg'
+import LeetCode from '../static/img/home/zhihu.jpg'
+import Geogle from '../static/img/home/geogle.jpg'
+import ZhiHu from '../static/img/home/zhihu.jpg'
+import Stack from '../static/img/home/StackOverflow.jpg'
 import {Button,List,Typography} from 'antd'
+import Card from '../components/Card'
 import {Row,Col} from 'antd'
 import '../less/home/Link.less'
 import FileUpload from '../components/FileUpload'
@@ -25,37 +30,30 @@ class Link extends React.Component {
              </Col>
              <Col span={6} className="card" >
              <div className="box shadow">
-               <div className="img"><img className="img" src={GitHub} /></div>
-               <div className="name">GitHub</div>
+               <div className="img"><img className="img" src={LeetCode} /></div>
+               <div className="name">LeetCode</div>
                </div>
              </Col>
              <Col span={6} className="card" >
              <div className="box shadow" >
-               <div className="img"><img className="img" src={GitHub} /></div>
-               <div className="name">GitHub</div>
+               <div className="img"><img className="img" src={ZhiHu} /></div>
+               <div className="name">ZhiHu</div>
                </div>
              </Col>
              <Col span={6} className="card" >
              <div className="box shadow">
-               <div className="img"><img className="img" src={GitHub} /></div>
-               <div className="name">GitHub</div>
+               <div className="img"><img className="img" src={Stack} /></div>
+               <div className="name">StackOverflow</div>
+               </div>
+             </Col>
+             <Col span={6} className="card" >
+             <div className="box shadow">
+               <div className="img"><img className="img" src={Geogle} /></div>
+               <div className="name">Geogle</div>
                </div>
              </Col>
            </Row>
-           <List
-      header={<div>Header</div>}
-      footer={<div>Footer</div>}
-      bordered
-      dataSource={data}
-      renderItem={(item: any) => (
-        <List.Item>
-          <Typography.Text mark>[ITEM]</Typography.Text> {item}
-        </List.Item>
-      )}
-    />
-      <Row>
-        <FileUpload />
-      </Row>
+  
        </Row>
         
       // </Router>

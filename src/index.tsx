@@ -12,7 +12,7 @@ import Share from './pages/Share'
 import Knowledge from './pages/Knowledge'
 import It from './pages/It'
 import Programming from './pages/Programming'
-
+import Userinfo from './pages/Userinfo'
 import 'antd/dist/antd.css'
 import {BrowserRouter, Route,HashRouter,IndexRoute,hashHistory,Switch} from 'react-router-dom'
 const Root = () => {
@@ -28,7 +28,7 @@ const Root = () => {
               <Route exact path="/home/development" component={Development} />
               <Route exact path="/home/filelist" component={FileList} />
               <Route exact path="/home/share" component={Share} />
-
+              <Route exact path="/home/userinfo" component={Userinfo} />
               <Route path="/home/portal" component={Link} />
               
               </Switch>

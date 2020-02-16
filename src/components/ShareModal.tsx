@@ -1,10 +1,10 @@
 import React from 'react'
-import {Row,Col,Modal,Button} from 'antd'
-import { Upload, Icon, message } from 'antd';
+import {Row,Col,Modal,Button,Form} from 'antd'
+import { Upload, Icon, message,Input } from 'antd';
 import {serverIP} from '../utils/GlobalConstants.js'
 const { Dragger } = Upload;
-import * as uploadService from '../services/fileService'
-class UploadFileModal extends React.Component{
+import * as uploadService from '../services/shareService'
+class ShareModal extends React.Component{
     state = { visible: false,
             fileList:[] };
     
@@ -14,8 +14,6 @@ class UploadFileModal extends React.Component{
       });
     };
   
- 
-  
     handleCancel = e => {
       console.log(e);
       this.setState({
@@ -23,11 +21,14 @@ class UploadFileModal extends React.Component{
       });
     };
     upload = ()=>{
-      if(this.refs.infile.files[0]){
+      let title = this.refs.title.state.value
+      let content = this.refs.content.state.value
+      if(this.refs.infile.files[0]&&title!=""&&content!=""){
       var formdata = new FormData();
       formdata.append("file",this.refs.infile.files[0]);
-      formdata.append("knowledgeId",this.props.id);
-      uploadService.uploadfile(formdata,(res)=>{
+      formdata.append("title",title);
+      formdata.append("content",content)
+      uploadService.createShare(formdata,(res)=>{
         if(res.code==1){
           this.setState({
             visible:false,
@@ -41,7 +42,7 @@ class UploadFileModal extends React.Component{
       });
     }
     else{
-      message.error('no file selected')
+      message.error('Incomplete Content')
     }
     }
     handleChange = info => {
@@ -55,34 +56,48 @@ class UploadFileModal extends React.Component{
         this.setState({ fileList });
       };
     render(){
+        const formItemLayout = {
+            labelCol: {
+              xs: { span: 24 },
+              sm: { span: 6 },
+            },
+            wrapperCol: {
+              xs: { span: 24 },
+              sm: { span: 18 },
+            },
+          };
         const {  fileList } = this.state;
         return(
             <Row className="upload_modal">   
                 <Button type="primary" onClick={this.showModal}>
-                     Upload
+                     Share
                         </Button>
                 <Modal
                     title="UplodaFile"
                     visible={this.state.visible}
                     onOk={this.upload}
                     onCancel={this.handleCancel}
-                    okText="Upload"
-                    
+                    okText="Upload"   
                 >
-                {/* <Dragger {...props}>
-                    <p className="ant-upload-drag-icon">
-                    <Icon type="inbox" />
-                    </p>
-                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                    <p className="ant-upload-hint">
-                    Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-                    band files
-                    </p>
-                </Dragger> */}
-                <input ref='infile' type="file" />
+                 <Form {...formItemLayout}>
+                   <Form.Item label="Title"
+                   >
+                    <Input  ref="title"/>
+                      </Form.Item>
+                      <Form.Item label="Content"
+                      >
+                        <Input ref="content" />
+                      </Form.Item>
+                      <Form.Item label="File"
+                      >
+                        <input ref='infile' type="file" />
+                      </Form.Item>
+                      </Form>
+                      
+               
                 </Modal>
             </Row>
         )
     }
 }
-export default UploadFileModal
+export default ShareModal

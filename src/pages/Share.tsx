@@ -1,60 +1,60 @@
 import React, { Children } from "react";
 import Web from '../static/img/home/bg_web.jpg'
-import { Button, List, Typography, Carousel, Menu, Icon } from 'antd'
+import { Button, List, Typography, Carousel, Menu, Icon,Radio,Tabs ,message} from 'antd'
 import { Row, Col } from 'antd'
 const { SubMenu } = Menu
+const { TabPane } = Tabs;
+import ShareModal from '../components/ShareModal'
+import * as ShareService from '../services/shareService'
 import ListFile from '../components/ListFile'
-import '../less/company.less'
+import '../less/share.less'
+import Post from '../components/Post'
 import FileUpload from '../components/FileUpload'
 class Share extends React.Component {
     constructor(props: any) {
         super(props)
-        this.state = {}
+        this.state = {
+            shareList:[]
+        }
     }
-    
+    componentWillMount = () =>{
+        this.getShareList()
+    }
+    getShareList = () =>{
+        ShareService.getShare().then(res=>{
+            if(res.code==1){
+                this.setState({
+                    shareList:res.data
+                })
+            }
+            else{
+                message.error(res.msg)
+            }
+        })
+    }
     render() {
-        const data = [
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-            'The employee handbook.doc',
-        ];
         return (
-            <Row className="company">
-               
-                <Row className="content_company">
-                    <Col span={4} style={{ height:'100%' }}>
-                        <Menu
-                            style={{ width: 256,height:'100%' }}
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            mode={'inline'}
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="mail" />
-                                Navigation One
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="calendar" />
-                                Navigation Two
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="calendar" />
-                                Navigation Three
-                            </Menu.Item>
-                            <Menu.Item key="4">
-                                <Icon type="calendar" />
-                                Navigation Four
-                            </Menu.Item>
-                           
-                        </Menu>
-                    </Col>
-                    <Col span={20} className="list">
-                       <ListFile />
-                    </Col>
+            <Row className="share">
+            <Tabs defaultActiveKey="1" className="tabs" tabBarExtraContent={<ShareModal />}>
+            <TabPane tab="Hot Shares" key="1">
+                <Row className="content_share">
+                    <Post />
+                    <Post />
+                    <Post />
+                    <Post />
+                    <Post />
+                    {this.state.shareList&&this.state.shareList.map((item)=><Post data={item}/>)}
                 </Row>
-            </Row>
+            </TabPane>
+            <TabPane tab="My Shares" key="2">
+                <Row className="content_share">
+                    <Post />
+                 
+                </Row>
+            
+            </TabPane>
+          </Tabs>
+           </Row>
 
 
         )

@@ -60,7 +60,7 @@ class Register extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-        <div className="content">
+        <div className="login_content">
         <div className="login">
       <Form onSubmit={this.handleSubmit} className="login-form">
       <Form.Item label="Email">

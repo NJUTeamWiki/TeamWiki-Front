@@ -25,6 +25,7 @@ class FileList extends React.Component {
           this.getknowledgefilelist()
     }
     getknowledgefilelist = ()=>{
+       
         FileService.getknowledgefilelist(this.state.id).then(res=>{
             console.log(res);
             this.setState({
@@ -33,11 +34,14 @@ class FileList extends React.Component {
         })
     }
     getQueryVariable = (variable)=>{
+
             var query = this.props.location.search.substring(1);
             var vars = query.split("&");
             for (var i=0;i<vars.length;i++) {
                     var pair = vars[i].split("=");
-                    if(pair[0] == variable){return decodeURI(pair[1]);}
+                    if(pair[0] == variable){
+                        
+                        return decodeURI(pair[1]);}
             }
             return(false);
     }
@@ -57,14 +61,14 @@ class FileList extends React.Component {
                     <Button className={this.state.selected=="list"?"selected":""} onClick={()=>{this.setState({selected:"list"})}} >List</Button>
                     <Button className={this.state.selected=="icon"?"selected":""} onClick={()=>{this.setState({selected:"icon"})}}>Icon</Button>
                 </ButtonGroup> 
-                <UploadFileModal />
+                <UploadFileModal refresh={this.getknowledgefilelist.bind(this)} id={this.state.id} />
                 </Row>     
                    
                     <Col span={24} className="list">
                       {this.state.selected=="list"?
-                      <ListFile data={this.state.filelist} refresh={this.getknowledgefilelist}/>:
+                      <ListFile data={this.state.filelist} refresh={this.getknowledgefilelist.bind(this)} id={this.state.id}/>:
                       <Row className="cardlist">
-                       {this.state.filelist&&this.state.filelist.map( (item)=><Card content={item} />)
+                       {this.state.filelist&&this.state.filelist.map((item)=><Card content={item} refresh={this.getknowledgefilelist.bind(this)}/>)
                         }
                     </Row>
                       }

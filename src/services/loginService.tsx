@@ -73,3 +73,62 @@ export function sign(data: any) {
     //     }
     // })
 }
+export function sign_out() {
+    return fetch(`${serverIP}/user/sign_out`, {
+        method: 'GET',
+        credentials: 'include',
+        mode: "cors",
+
+    }).then(res => res.json()).then((json) => {
+        return json
+    }).catch((err) => {
+        return err
+    })
+    // $.ajax({
+    //     url:`${serverIP}/user/sign_up`,
+    //     type:"POST",
+    //     data:data,
+    //     success:function(data){
+    //         console.log(data);
+    //         return data;
+    //     }
+    // })
+}
+export function update_user(data:any) {
+    return fetch(`${serverIP}/user/profile`, {
+        method: 'PUT',
+        credentials: 'include',
+        mode: "cors",
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': 'true',
+        }),
+         body:JSON.stringify(data)
+    }).then(res => res.json()).then((json) => {
+        return json
+    }).catch((err) => {
+        return err
+    })
+    // $.ajax({
+    //     url:`${serverIP}/user/sign_up`,
+    //     type:"POST",
+    //     data:data,
+    //     success:function(data){
+    //         console.log(data);
+    //         return data;
+    //     }
+    // })
+}
+export function getUser(){
+    return fetch(`${serverIP}/user`, {
+        method: 'GET',
+        credentials: 'include',
+        mode: "cors",
+        
+    }).then(res => res.json()).then((json) => {
+        return json
+    }).catch((err) => {
+        return err
+    })
+}

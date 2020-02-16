@@ -1,8 +1,11 @@
 import React from 'react'
 import { Menu, Dropdown, Icon, Avatar, Button,Row } from 'antd';
 import WebIcon from '../../static/img/home/web-icon.png'
-import Ava from '../../static/img/home/bg_web.jpg'
+import Ava from '../../static/img/home/avatar.png'
+import * as LoginService from '../../services/loginService'
 import '../../less/home/nav.less'
+import {serverIP} from '../../utils/GlobalConstants.js'
+import emitter from '../../utils/ev.js'
 import { hashHistory, withRouter } from 'react-router-dom'
 const { SubMenu } = Menu;
 @withRouter
@@ -10,8 +13,23 @@ class Nav extends React.Component {
   state = {
     current: this.getCurrent(),
     visible:false,
-    userdata:localStorage.getItem("user")
+    userdata:JSON.parse(localStorage.getItem("user"))
   };
+  componentWillMount(){
+    this.eventEmitter = emitter.addListener("changeUser",()=>{
+      this.setState({
+        userdata:JSON.parse(localStorage.getItem("user"))
+      })
+  });
+  }
+  componentWillUnmount=()=>{
+    emitter.removeListener(this.eventEmitter);
+  }
+  componentWillUpdate(){
+    
+    console.log("ssss");
+  }
+  
   handleMenuClick = e => {
     // if (e.key === '3') {
     //   this.setState({ visible: false });
@@ -46,20 +64,26 @@ class Nav extends React.Component {
 
     }
   }
+  signout = () =>{
+    LoginService.sign_out().then(res=> {
+      localStorage.removeItem("user");
+      this.props.history.push("/login")
+    })
+
+  }
   handleClick = (key: any, link: any) => {
     console.log(key);
     this.setState({
       current: key,
     });
-
     this.props.history.push(`/home/${link}`)
   };
   render() {
     const { current } = this.state
      const menu = (
       <Menu onClick={this.handleMenuClick}>
-        <Menu.Item key="1">个人中心</Menu.Item>
-        <Menu.Item key="2" onClick={()=>{localStorage.removeItem("user"),this.setState({userdata:""})}}>登出</Menu.Item>
+        <Menu.Item key="1" onClick={()=>{this.props.history.push('/home/userinfo')}}>Personal Center</Menu.Item>
+        <Menu.Item key="2" onClick={this.signout}>Sign Out</Menu.Item>
       </Menu>
     );
         
@@ -79,10 +103,10 @@ class Nav extends React.Component {
           <span onClick={this.handleClick.bind(this, "portal", 'portal')} className={current == "portal" ? "selected" : ""}  >Portal</span>
           
         </div>
-        <div className="log">
+        <div className="log" style={{ visibility: this.props.showmenu }}>
            {this.state.userdata?
-           <Dropdown overlay={menu} onClick={this.handleClick.bind(this, "first", 'company')} className={current == "first" ? "selected" : ""} >
-             <Avatar src={Ava} size={40} />
+           <Dropdown overlay={menu} >
+             <Avatar src={this.state.userdata.avatar?`${serverIP}/storage/${this.state.userdata.avatar}`:Ava} size={40} />
          </Dropdown>
          :
          <Button type="primary" shape="round" onClick={()=>{this.props.history.push('/login')} } >LOG</Button>

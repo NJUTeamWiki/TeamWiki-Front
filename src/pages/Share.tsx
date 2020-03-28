@@ -33,30 +33,24 @@ class Share extends React.Component {
         })
     }
     render() {
+        const userId =JSON.parse(localStorage.getItem("user")).userId
         return (
             <Row className="share">
             <Tabs defaultActiveKey="1" className="tabs" tabBarExtraContent={<ShareModal />}>
             <TabPane tab="Hot Shares" key="1">
-                <Row className="content_share">
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
+                <Row className="content_share"> 
                     {this.state.shareList&&this.state.shareList.map((item)=><Post data={item}/>)}
                 </Row>
             </TabPane>
             <TabPane tab="My Shares" key="2">
                 <Row className="content_share">
-                    <Post />
-                 
+                <Row className="content_share"> 
+                    {this.state.shareList&&this.state.shareList.filter((item)=> item.shareUser==userId).map((item)=><Post data={item}/>)}
                 </Row>
-            
+                </Row>
             </TabPane>
           </Tabs>
            </Row>
-
-
         )
     }
 }

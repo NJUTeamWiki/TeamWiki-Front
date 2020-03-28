@@ -94,6 +94,26 @@ export function sign_out() {
     //     }
     // })
 }
+export function checklogin() {
+    return fetch(`${serverIP}/user/check`, {
+        method: 'GET',
+        credentials: 'include',
+        mode: "cors",
+    }).then(res => res.json()).then((json) => {
+        return json
+    }).catch((err) => {
+        return err
+    })
+    // $.ajax({
+    //     url:`${serverIP}/user/sign_up`,
+    //     type:"POST",
+    //     data:data,
+    //     success:function(data){
+    //         console.log(data);
+    //         return data;
+    //     }
+    // })
+}
 export function update_user(data:any) {
     return fetch(`${serverIP}/user/profile`, {
         method: 'PUT',

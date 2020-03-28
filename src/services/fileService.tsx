@@ -2,6 +2,7 @@ import { serverIP } from '../utils/GlobalConstants'
 import {hashHistory} from 'react-router-dom'
 import {message} from 'antd'
 import $ from 'jquery'
+
 export function uploadfile(data:any,cb) {
     // return fetch(`${serverIP}/knowledge/upload`, {
     //     method: 'POST',

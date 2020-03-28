@@ -1,14 +1,16 @@
 import { PageHeader, Menu, Dropdown, Icon, Button, Tag, Typography, Row } from 'antd';
 import React from 'react'
 const { Paragraph } = Typography;
-
-const IconLink = ({ src, text }) => (
+import {serverIP} from '../utils/GlobalConstants.js'
+const IconLink = ({href, src, text,preview }) => (
+  <Row>
   <a
     style={{
       marginRight: 16,
-      display: 'flex',
-      alignItems: 'center',
+        
     }}
+    href={preview}
+    target="_blank"
   >
     <img
       style={{
@@ -19,24 +21,32 @@ const IconLink = ({ src, text }) => (
     />  
     {text}
   </a>
+  <a  href={href}
+    download="file" ><Icon type="download" /></a>
+  </Row>
+  
 );
 
-const content = (
-  <div className="content">
+const content = (data:any) => {
+  
+    return  <div className="content">
     
-    <Paragraph>
-      Ant Design&#x27;s design team preferred to design with the HSB color model, which makes it
-      easier for designers to have a clear psychological expectation of color when adjusting colors,
-      as well as facilitate communication in teams.
-    </Paragraph>
-    <Row className="contentLink" type="flex">
-      <IconLink
-        src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg"
-        text="Doc.word"
-      />
+        <Paragraph>
+              {data.shareContent}
+         </Paragraph>
+          <Row className="contentLink" type="flex">
+            {data.documents&&data.documents.map((item)=>{
+                return  <IconLink
+                    src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg"
+                    text={item.dname}
+                    href={`${serverIP}/document/download/${item.did}`}
+                    preview={`${serverIP}/document/preview/${item.did}`}
+                    />
+          })}
     </Row>
   </div>
-);
+}
+
 
 const Content = ({ children }) => {
   return (
@@ -57,34 +67,25 @@ const Content = ({ children }) => {
 };
 
 class Post extends React.Component{
+  
     render(){
+       const {data} = this.props
         return(
             <PageHeader
-            title="THis is a Title"
+            title={data.shareTitle}
             style={{
               border: '1px solid rgb(235, 237, 240)',
             }}
             className="shadow"
             tags={<Tag color="blue">精</Tag>}
             extra={[
-              <Button key="3">
-                {/* <IconLink 
-                 src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg"
-       
-                 text="1"
-                /> */}
-                Operation
-              </Button>,
-              <Button key="2">Operation</Button>,
-              <Button key="1" type="primary">
-                Primary
-              </Button>,
-             
+              // <Button key="1" type="danger">
+              //   <Icon type="star" />
+              // </Button>,
             ]}
-            avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}
-          >
+            avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}>
             <Content >
-              {content}
+              {content(data)}
             </Content>
           </PageHeader>
         )

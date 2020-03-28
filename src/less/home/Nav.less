@@ -1,15 +1,23 @@
 .nav {
-    padding-top: 1%;
     height: 10%;
-    background: rgba(255, 255, 255, 0.5);
+    background: #322957;
+    color: white;
     box-shadow: 1px 1px 3px #949090;
+    .web_title{
+        font-weight: bold;
+        font-size: 30px;
+        display: inline-block;
+        width: 30%;
+        padding-left: 14px;
+        cursor: pointer;
+    }
     .image{
         width: 10%;
     }
     .menu {
         font-size  : 14px;
         font-family: "Roboto", sans-serif;
-        width      : 77%;
+        width      : 57%;
         display    : inline-block;
         font-weight: 600;
         text-align : right;
@@ -21,7 +29,6 @@
             display    : inline-block;
 
             &:hover {
-
                 transform: translateY(-3px);
             }
         }
@@ -29,12 +36,8 @@
         .selected {
             //background-color   : #4358EA;
             // background-color: #E13629;
-             background-color: #F4B840;
-            // background-color: #CECECE;
-            color              : white;
-            
+            color: #20f6bb;
         }
-
         .image {
             width       : 13%;
             padding-left: 5%;
@@ -44,8 +47,9 @@
         }
     }
     .log{
-        display: inline;
+        display: inline-block;
         margin-left: 6%;
+        width: 7%;
         button{
             background-color: #E13629 ;
             border-color: #E13629;

@@ -40,11 +40,17 @@ class ListFile  extends React.Component{
             bordered
             dataSource={data}
             renderItem={(item: any) => (
-                <List.Item actions={item.uploader==userdata.userId?[<a key="list-loadmore-edit" onClick={this.deletefile.bind(this,item)}>
-                    <Icon type="delete"  />
-              </a>]:[]}
-                >
-                  <Row style={{width:"100%"}}> <a href={`${serverIP}/storage/${item.url}`} download="file" > <Typography.Text mark>i</Typography.Text>{item.dname}</a></Row>
+                <List.Item actions={item.uploader==userdata.userId?
+                [<a key="list-loadmore-edit" onClick={this.deletefile.bind(this,item)}>
+                    <Icon type="delete"/>
+              </a>,
+             <a  href={`${serverIP}/document/download/${item.did}`} download="file" >
+               <Icon type="download"/> </a>  
+            ]:[<a  href={`${serverIP}/document/download/${item.did}`} download="file" >
+            <Icon type="download"/> </a>  ]}>
+            <Row style={{width:"100%"}}> <a target='_blank' href={`${serverIP}/document/preview/${item.did}`} download="file" >
+               <Typography.Text mark>i</Typography.Text>{item.dname}</a>
+            </Row>
                 </List.Item>
             )}
         />

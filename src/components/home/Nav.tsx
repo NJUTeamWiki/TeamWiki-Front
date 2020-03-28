@@ -4,7 +4,7 @@ import WebIcon from '../../static/img/home/web-icon.png'
 import Ava from '../../static/img/home/avatar.png'
 import * as LoginService from '../../services/loginService'
 import '../../less/home/nav.less'
-import {serverIP} from '../../utils/GlobalConstants.js'
+import {serverIPDownload} from '../../utils/GlobalConstants.js'
 import emitter from '../../utils/ev.js'
 import { hashHistory, withRouter } from 'react-router-dom'
 const { SubMenu } = Menu;
@@ -13,23 +13,23 @@ class Nav extends React.Component {
   state = {
     current: this.getCurrent(),
     visible:false,
-    userdata:JSON.parse(localStorage.getItem("user"))
+    userdata:JSON.parse(localStorage.getItem("user")),
+    eventEmitter:"",
   };
   componentWillMount(){
-    this.eventEmitter = emitter.addListener("changeUser",()=>{
+    emitter.addListener("changeUser",()=>{
       this.setState({
         userdata:JSON.parse(localStorage.getItem("user"))
       })
   });
   }
   componentWillUnmount=()=>{
-    emitter.removeListener(this.eventEmitter);
+    emitter.removeListener("changeUser",()=>{
+      this.setState({
+        userdata:JSON.parse(localStorage.getItem("user"))
+      })
+  });
   }
-  componentWillUpdate(){
-    
-    console.log("ssss");
-  }
-  
   handleMenuClick = e => {
     // if (e.key === '3') {
     //   this.setState({ visible: false });
@@ -44,6 +44,8 @@ class Nav extends React.Component {
     console.log(this.props);
     let location = this.props.history.location.pathname.split('/')
     switch (location[location.length - 1]) {
+      case 'home':
+        return 'home';
       case 'company':
         return 'first';
       case 'it':
@@ -60,7 +62,8 @@ class Nav extends React.Component {
         return 'portal';
         case 'knowledge':
         return 'knowledge';
-      
+      default:
+        return 'home'
 
     }
   }
@@ -89,13 +92,14 @@ class Nav extends React.Component {
         
     return (
     
-      <div className='nav'>
-        <img src={WebIcon} className="image" onClick={()=>{this.props.history.push("/home")}} />
+      <Row className='nav' type="flex" align="middle">
+        <span className="web_title" onClick={()=>{this.props.history.push('/home/')} } >TeamWiki</span>
         <div className="menu" style={{ visibility: this.props.showmenu }}>
           {/* <Dropdown overlay={DayMenu} onClick={this.handleClick.bind(this, "first", 'company')} className={current == "first" ? "selected" : ""} >
             <span>First Day</span>
           </Dropdown> */}
           {/* <div style={{float:"right"}}> */}
+          <span onClick={this.handleClick.bind(this, "home", '')} className={current == "home" ? "selected" : ""}>Home</span>
           {/* <Dropdown overlay={KnowMenu} onClick={this.handleClick.bind(this, "knowledge", 'development')} className={current == "knowledge" ? "selected" : ""} > */}
             <span onClick={this.handleClick.bind(this, "knowledge", 'knowledge')} className={current == "knowledge" ? "selected" : ""}>Knowledge</span>
           {/* </Dropdown> */}
@@ -106,13 +110,15 @@ class Nav extends React.Component {
         <div className="log" style={{ visibility: this.props.showmenu }}>
            {this.state.userdata?
            <Dropdown overlay={menu} >
-             <Avatar src={this.state.userdata.avatar?`${serverIP}/storage/${this.state.userdata.avatar}`:Ava} size={40} />
+             <Avatar style={{cursor:"pointer"}} src={this.state.userdata.avatar?`${serverIPDownload}/${this.state.userdata.avatar}`:Ava}
+              onClick={()=>{this.props.history.push('/home/userinfo')}}
+             size={40} />
          </Dropdown>
          :
          <Button type="primary" shape="round" onClick={()=>{this.props.history.push('/login')} } >LOG</Button>
           }
            </div>
-      </div>
+      </Row>
     )
   }
 }

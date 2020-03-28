@@ -4,6 +4,7 @@ import { Upload, Icon, message,Input } from 'antd';
 import {serverIP} from '../utils/GlobalConstants.js'
 const { Dragger } = Upload;
 import * as uploadService from '../services/shareService'
+const { TextArea } = Input;
 class ShareModal extends React.Component{
     state = { visible: false,
             fileList:[] };
@@ -73,11 +74,11 @@ class ShareModal extends React.Component{
                      Share
                         </Button>
                 <Modal
-                    title="UplodaFile"
+                    title="Share"
                     visible={this.state.visible}
                     onOk={this.upload}
                     onCancel={this.handleCancel}
-                    okText="Upload"   
+                    okText="Share"   
                 >
                  <Form {...formItemLayout}>
                    <Form.Item label="Title"
@@ -86,11 +87,12 @@ class ShareModal extends React.Component{
                       </Form.Item>
                       <Form.Item label="Content"
                       >
-                        <Input ref="content" />
+                      <TextArea ref="content" 
+                       autoSize={{ minRows: 8, maxRows: 10 }} />
                       </Form.Item>
                       <Form.Item label="File"
                       >
-                        <input ref='infile' type="file" />
+                        <input ref='infile' style={{lineHeight:"22px",marginTop:"5px"}} type="file" />
                       </Form.Item>
                       </Form>
                       

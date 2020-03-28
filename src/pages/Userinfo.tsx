@@ -2,6 +2,7 @@ import React from 'react'
 import {Row,Col,Avatar,Upload,Icon,Input,Button} from 'antd'
 import '../less/user.less'
 import {serverIP} from '../utils/GlobalConstants.js'
+import {serverIPDownload} from '../utils/GlobalConstants.js'
 import * as UserService from '../services/loginService'
 import emitter from '../utils/ev.js'
 class Userinfo extends React.Component{
@@ -106,10 +107,10 @@ class Userinfo extends React.Component{
                         className="avatar-uploader"
                         showUploadList={false}
                         withCredentials={true}
-                        action='http://172.19.241.57:8081/user/avatar'
+                        action={`${serverIP}/user/avatar`}
                         onChange={this.handleChange}
                     >
-                    {userdata.avatar ? <Avatar type="round" src={userdata.avatar?`${serverIP}/storage/${userdata.avatar}?${+new Date()}`:""} alt="avatar" size={60} /> : uploadButton}
+                    {userdata.avatar ? <Avatar type="round" src={userdata.avatar?`${serverIPDownload}/${userdata.avatar}?${+new Date()}`:""} alt="avatar" size={60} /> : uploadButton}
                     </Upload>
                    </Col>
                 </Row>

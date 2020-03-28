@@ -2,6 +2,7 @@ import React from 'react'
 import {Row,Col,Icon,Modal,Input} from 'antd'
 import '../less/knowledge.less'
 import * as KnowledgeService from '../services/knowledgelService'
+import Book from '../components/Book'
 class Knowledge extends React.Component{
     state={knowledgelist:[]
         ,visible:false,
@@ -57,7 +58,7 @@ class Knowledge extends React.Component{
                 <Row className="firstday">
                     <Row className="title">First Day<Icon className="icon" onClick={this.showModal.bind(this,1)} type="plus-circle" /></Row>
                     <Row className="itemlist" >
-                        {knowledgelist&&knowledgelist.filter((item)=>item.category==1).map((item,index)=>
+                        {knowledgelist&&knowledgelist[0]&&knowledgelist[0].knowledges.map((item,index)=>
                         <Col span={8} key={index}  className="item"><Row className="name" onClick={()=>{this.props.history.push(`filelist?name=${item.kname}&&id=${item.kid}`)}}>{item.kname}</Row></Col>
                         )}
                     </Row>
@@ -65,7 +66,7 @@ class Knowledge extends React.Component{
                 <Row className="firstday">
                     <Row className="title">Workflow<Icon className="icon" onClick={this.showModal.bind(this,2)} type="plus-circle" /></Row>
                     <Row className="itemlist">
-                    {knowledgelist&&knowledgelist.filter((item)=>item.category==2).map((item,index)=>
+                    {knowledgelist&&knowledgelist[0]&&knowledgelist[1].knowledges.map((item,index)=>
                         <Col span={8} key={index} className="item"><Row className="name" onClick={()=>{this.props.history.push(`filelist?name=${item.kname}&&id=${item.kid}`)}}>{item.kname}</Row></Col>
                         )}
                     </Row>
@@ -73,8 +74,10 @@ class Knowledge extends React.Component{
                 <Row className="firstday">
                     <Row className="title">Books</Row>
                     <Row className="itemlist">
-                        <Col span={8} className="item"><Row className="name">Head First Java</Row></Col>
-                    </Row>
+                    {knowledgelist&&knowledgelist[0]&&knowledgelist[3].knowledges.map((item,index)=>
+                       <Book  content={item}/>
+                       )}
+                     </Row>
                 </Row>
                     <Modal
                            title="Add Knowledge "

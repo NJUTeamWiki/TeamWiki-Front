@@ -4,6 +4,7 @@ import { Button, List, Typography, Carousel, Menu, Icon,Avatar,message } from 'a
 import { Row, Col } from 'antd'
 const { SubMenu } = Menu
 import Book from '../components/Book'
+import {serverIPDownload} from '../utils/GlobalConstants'
 import {serverIP} from '../utils/GlobalConstants'
 import ListFile from '../components/ListFile'
 import * as UserService from '../services/loginService'
@@ -35,20 +36,18 @@ class Company extends React.Component {
         const {userlist} = this.state
         return (
             <Row className="home_page">
-            <Row className="home_first">
-              <Row className="title">
-                <Row>Welcome to XXX!</Row>
+            <Col span={12} className="home_first">
+              <Row className="home_title">
+                <Row>Welcome to WIKI!</Row>
                 <Row>This is the team introduction. Can be edited by administrator.</Row>
               </Row>
-              
-            </Row>
-            <Row className="member">
+              <Row className="member">
                   <Row className="title">Team Members</Row>
                   <Row className="item">
                         <Col span={3} className="title">Leader</Col>
                         <Col span={20}>
                             {userlist&&userlist.filter((item)=>item.role==1).map((item)=>
-                             <Row className="item_avatar" ><Avatar src={item.avatar?`${serverIP}/storage/${item.avatar}`:Web} size={50} style={{margin:"0 auto"}} /><span>{item.username}</span></Row>
+                             <Row className="item_avatar" ><Avatar src={item.avatar?`${serverIPDownload}/${item.avatar}`:Web} size={50} style={{margin:"0 auto"}} /><span>{item.username}</span></Row>
                             )}
                            
                         </Col>
@@ -57,7 +56,7 @@ class Company extends React.Component {
                         <Col span={3} className="title">Guru</Col>
                         <Col span={20}>
                             {userlist&&userlist.filter((item)=>item.role==2).map((item)=>
-                             <Row className="item_avatar"><Avatar src={item.avatar?`${serverIP}/storage/${item.avatar}`:Web} size={50} style={{margin:"0 auto"}} /><span>{item.username}</span></Row>
+                             <Row className="item_avatar"><Avatar src={item.avatar?`${serverIPDownload}/${item.avatar}`:Web} size={50} style={{margin:"0 auto"}} /><span>{item.username}</span></Row>
                             )}
                             <Row className="item_avatar"><Avatar src={Web} size={50} style={{margin:"0 auto"}} /><span>nobody</span></Row>
                             
@@ -68,20 +67,24 @@ class Company extends React.Component {
                         <Col span={3} className="title">NewComer</Col>
                         <Col span={20}>
                         {userlist&&userlist.filter((item)=>item.role==3).map((item)=>
-                             <Row className="item_avatar"><Avatar src={item.avatar?`${serverIP}/storage/${item.avatar}`:Web} size={50} style={{margin:"0 auto"}} /><span>zhangchi</span></Row>
+                             <Row className="item_avatar"><Avatar src={item.avatar?`${serverIPDownload}/${item.avatar}`:Web} size={50} style={{margin:"0 auto"}} /><span>zhangchi</span></Row>
                             )}
                               </Col>
                    </Row>
                   
               </Row>
+            </Col>
+            <Col span={12} >
+           
               <Row className="recommend">
                     <Row className="title">Recommend Reading</Row>
                     <Row className="cardlist">
-                        <Book/> <Book/> <Book/>
+                       {/*  */}
 
                     </Row>
                  
               </Row>
+              </Col>
               </Row>
 
 

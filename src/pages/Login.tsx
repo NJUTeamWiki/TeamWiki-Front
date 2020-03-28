@@ -13,6 +13,12 @@ class Login extends React.Component {
     super(props)
     this.state = {}
   }
+  componentDidMount(){
+    LoginService.checklogin().then((res)=>{
+      if(res.code=="1"){
+        this.props.history.push('/home')
+      }
+  })}
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err: any, values: any) => {

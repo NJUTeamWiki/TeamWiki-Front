@@ -63,6 +63,9 @@ class Register extends React.Component {
         <div className="login_content">
         <div className="login">
       <Form onSubmit={this.handleSubmit} className="login-form">
+      <Form.Item>
+        <span className="webtitle">TEAM WIKI </span> 
+        </Form.Item>
       <Form.Item label="Email">
           {getFieldDecorator('email', {
             rules: [
@@ -113,7 +116,8 @@ class Register extends React.Component {
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Register
-          </Button>    
+          </Button> 
+          Or <a href="/#/login">login in!</a>   
         </Form.Item>
       </Form>
       </div>

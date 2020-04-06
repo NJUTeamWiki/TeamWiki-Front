@@ -44,7 +44,11 @@ class Login extends React.Component {
     return (
       <div className="login_content">
         <div className="login">
+         
       <Form onSubmit={this.handleSubmit} className="login-form">
+      <Form.Item>
+        <span className="webtitle">TEAM WIKI </span> 
+        </Form.Item>
         <Form.Item>
           {getFieldDecorator('email', {
             rules: [{  type: 'email',required: true, message: 'Please input your email!' }],
@@ -71,9 +75,7 @@ class Login extends React.Component {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>Remember me</Checkbox>)}
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
+         
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>

@@ -76,7 +76,7 @@ class Post extends React.Component{
             style={{
               border: '1px solid rgb(235, 237, 240)',
             }}
-            className="shadow"
+            className="shadowpost"
             tags={<Tag color="blue">精</Tag>}
             extra={[
               // <Button key="1" type="danger">

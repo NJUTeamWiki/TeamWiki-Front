@@ -14,11 +14,25 @@ import It from './pages/It'
 import Programming from './pages/Programming'
 import Userinfo from './pages/Userinfo'
 import 'antd/dist/antd.css'
-import {BrowserRouter, Route,HashRouter,IndexRoute,hashHistory,Switch} from 'react-router-dom'
+import * as LoginService from './services/loginService'
+import {BrowserRouter, Route,HashRouter,IndexRoute,hashHistory,Switch,Redirect} from 'react-router-dom'
+
 const Root = () => {
+  function redirece(){
+    let bool = false;
+    LoginService.checklogin().then((res)=>{
+      if(res.code=="1"){
+        window.location.href="/#/home/"
+      }
+      else{
+        window.location.href="/#/login"
+      }
+    })
+    // return bool?"/home/":"/login"
+  }
   return (
       <HashRouter history={hashHistory} >
-        <Route path={`/home`} render={ (props: any) => 
+        <Route  path={`/home`} render={ (props: any) => 
             <Home>
               <Switch>
               <Route exact path="/home/" component={Company} />
@@ -30,19 +44,18 @@ const Root = () => {
               <Route exact path="/home/share" component={Share} />
               <Route exact path="/home/userinfo" component={Userinfo} />
               <Route path="/home/portal" component={Link} />
-              
               </Switch>
             </Home>
         } >
         </Route>
         <Route path={`/login`} component={Login}/>
-        <Route path={`/register`} component={Register}/>
-        <Route path={`/app`} component={App}/>
-          
+        <Route exact path={`/`} render={()=> <Redirect to={redirece()} /> }/>
+        <Route path={`/register`} component={Register}/>   
       </HashRouter>
   )
 
 }
+
 ReactDOM.render(
   <Root/>,
   document.getElementById('example'),

@@ -117,7 +117,7 @@ class Register extends React.Component {
           <Button type="primary" htmlType="submit" className="login-form-button">
             Register
           </Button> 
-          Or <a href="/#/login">login in!</a>   
+          Or <a href="/#/login">login !</a>   
         </Form.Item>
       </Form>
       </div>

@@ -81,3 +81,24 @@ export function getRecommend(){
         return err
     })
 }
+export function getHistory(){
+    return fetch(`${serverIP}/knowledge/recommend`, {
+        method: 'GET',
+        mode: "cors",
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        }),
+        credentials: 'include',
+      
+
+    }).then(res => res.json()).then((json) => {    
+        if(json.code==20001){
+            message.error("身份过期，请重新登录")
+            window.location.href="/#/login"
+        }
+        return json
+    }).catch((err) => {
+        return err
+    })
+}

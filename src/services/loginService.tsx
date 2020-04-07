@@ -152,3 +152,15 @@ export function getUser(){
         return err
     })
 }
+export function updateUserRole(data){
+    return fetch(`${serverIP}/admin/userRole?uid=${data.uid}&&role=${data.role}`, {
+        method: 'PUT',
+        credentials: 'include',
+        mode: "cors",
+        body:JSON.stringify(data)
+    }).then(res => res.json()).then((json) => {
+        return json
+    }).catch((err) => {
+        return err
+    })
+}

@@ -10,6 +10,7 @@ import Development from './pages/Development'
 import FileList from './pages/FileList'
 import Share from './pages/Share'
 import Knowledge from './pages/Knowledge'
+import Admin from './pages/Admin'
 import It from './pages/It'
 import Programming from './pages/Programming'
 import Userinfo from './pages/Userinfo'
@@ -49,6 +50,7 @@ const Root = () => {
         } >
         </Route>
         <Route path={`/login`} component={Login}/>
+        <Route path={`/admin`} component={Admin}/>
         <Route exact path={`/`} render={()=> <Redirect to={redirece()} /> }/>
         <Route path={`/register`} component={Register}/>   
       </HashRouter>

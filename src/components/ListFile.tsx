@@ -76,7 +76,8 @@ class ListFile  extends React.Component{
             <Icon type="download"/> </a>  ]}>
             <Row style={{width:"100%"}}> 
             <a target='_blank' href={`${serverIP}/document/preview/${item.did}`} download="file" >
-          <span className="list_name"><img src={this.getIcon(item.dname)} className="img" />{item.dname}</span><span style={{marginLeft:"30px"}}>{item.modifiedTime.replace("T"," ")}</span></a>
+          <span className="list_name"><img src={this.getIcon(item.dname)} className="img" />{item.dname}</span>
+          <span style={{marginLeft:"30px"}}>{item.modifiedTime.replace("T"," ")}</span></a>
             </Row>
                 </List.Item>
             )}

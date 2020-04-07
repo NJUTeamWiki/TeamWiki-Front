@@ -4,6 +4,7 @@ import { Button, List, Typography, Carousel, Menu, Icon,Avatar,message } from 'a
 import { Row, Col } from 'antd'
 const { SubMenu } = Menu
 import Book from '../components/Book'
+import Ava from '../static/img/home/avatar.png'
 import {serverIPDownload} from '../utils/GlobalConstants'
 import {serverIP} from '../utils/GlobalConstants'
 import ListFile from '../components/ListFile'
@@ -18,7 +19,25 @@ class Company extends React.Component {
         super(props)
         this.state = {
             userlist:[],
-            recommend:[]
+            recommend:[],
+            actions:[{
+                "uid": "xxxx",
+                "user": "xuyangchen",
+                "avatar": "xxxxx",
+                "action": "Create",
+                "did": "xxxxxxxxx",
+                "dname": "Test",
+                "timestamp": "xxxxxx"
+               },{
+                "uid": "xxxx",
+                "user": "xuyangchen",
+                "avatar": "xxxxx",
+                "action": "Create",
+                "did": "xxxxxxxxx",
+                "dname": "Test",
+                "timestamp": "xxxxxx"
+               }],
+               
         }
     }
     componentDidMount(){
@@ -50,6 +69,7 @@ class Company extends React.Component {
     
     render() {
         const {userlist} = this.state
+        const userdata = JSON.parse(localStorage.getItem("user"));
         return (
             <Row className="home_page" >
             <Col span={12} className="home_first">
@@ -74,8 +94,7 @@ class Company extends React.Component {
                             {userlist&&userlist.filter((item)=>item.role==2).map((item)=>
                              <Row className="item_avatar"><Avatar src={item.avatar?`${serverIPDownload}/${item.avatar}`:Web} size={50} style={{margin:"0 auto"}} /><span>{item.username}</span></Row>
                             )}
-                              <Row className="item_avatar"><Avatar src={Web} size={50} style={{margin:"0 auto"}} /><span>nobody</span></Row>
-                         
+                          
                             </Col>
 
                    </Row>
@@ -91,7 +110,7 @@ class Company extends React.Component {
               </Row>
             </Col>
             <Col span={12} style={{height:"100%"}} >
-           
+              {userdata.role=="1"?              
               <Row className="recommend" >
                     <Row className="title">Recommend Reading</Row>
                     <Row className="cardlist">
@@ -107,7 +126,7 @@ class Company extends React.Component {
                                     <List.Item actions={[<a  href={`${serverIP}/document/download/${item.did}`} download="file" >
                                 <Icon type="download"/> </a>  ]}>
                                 <Row style={{width:"100%"}}> <a target='_blank' href={`${serverIP}/document/preview/${item.did}`} download="file" >
-                                <Typography.Text mark>i</Typography.Text>{item.dname}</a>
+                                    {item.dname}</a>
                                 </Row>
                                     </List.Item>
                                     )}
@@ -121,7 +140,26 @@ class Company extends React.Component {
                       }
                     </Row>
                  
-              </Row>
+              </Row>:
+              <Row className="recommend" >
+                   <Row className="title">History</Row>
+                        <List
+                                className="list_file"
+                               
+                                dataSource={this.state.actions}
+                                renderItem={(item: any) => (
+                                    <List.Item actions={[]}>
+                                <Row style={{width:"100%"}}> 
+                                <Avatar style={{cursor:"pointer",marginRight:10}} src={item.avatar?`${serverIPDownload}/${item.avatar}`:Ava} size={32} />
+                                <span className="user">{item.user}</span> <span className="action">{item.action} </span>
+                                <a target='_blank' href={`${serverIP}/document/preview/${item.did}`}  >
+                                {item.dname}</a>
+                                <span className="time">{item.timestamp}</span>
+                                </Row>
+                                </List.Item>
+                                )}
+                        />
+              </Row>}
               </Col>
               </Row>
 

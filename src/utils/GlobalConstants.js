@@ -1,4 +1,4 @@
-var serverIPDownload = 'http://172.19.241.57:8081/img';
- var serverIP = 'http://172.19.241.57:8081/api';
+var serverIPDownload = 'http://localhost:80/img';
+var serverIP = 'http://localhost:80/api';
 export  { serverIP };
 export  { serverIPDownload };

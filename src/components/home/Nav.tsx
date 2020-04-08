@@ -3,7 +3,7 @@ import { Menu, Dropdown, Icon, Avatar, Button,Row } from 'antd';
 import WebIcon from '../../static/img/home/web-icon.png'
 import Ava from '../../static/img/home/avatar.png'
 import * as LoginService from '../../services/loginService'
-import '../../less/home/nav.less'
+import '../../less/home/Nav.less'
 import {serverIPDownload} from '../../utils/GlobalConstants.js'
 import emitter from '../../utils/ev.js'
 import { hashHistory, withRouter } from 'react-router-dom'

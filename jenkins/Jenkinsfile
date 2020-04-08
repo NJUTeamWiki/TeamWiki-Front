@@ -1,0 +1,30 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+    tools {
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
+    }
+//    options {
+//        skipStagesAfterUnstable()
+//    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'docker build -t xuyangchen/teamwiki-web .'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'chmod 777 ./jenkins/scripts/deploy.sh'
+                sh './jenkins/scripts/deploy.sh'
+            }
+        }
+        stage('Deliver') {
+            steps {
+                sh 'chmod 777 ./jenkins/scripts/deliver.sh'
+                sh './jenkins/scripts/deliver.sh'
+            }
+        }
+    }
+}

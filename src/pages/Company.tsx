@@ -13,6 +13,7 @@ import * as KnowledgeServices from '../services/knowledgelService'
 import '../less/firstday/home.less'
 import FileUpload from '../components/FileUpload'
 import { Collapse } from 'antd';
+
 const { Panel } = Collapse;
 class Company extends React.Component {
     constructor(props: any) {
@@ -20,23 +21,8 @@ class Company extends React.Component {
         this.state = {
             userlist:[],
             recommend:[],
-            actions:[{
-                "uid": "xxxx",
-                "user": "xuyangchen",
-                "avatar": "xxxxx",
-                "action": "Create",
-                "did": "xxxxxxxxx",
-                "dname": "Test",
-                "timestamp": "xxxxxx"
-               },{
-                "uid": "xxxx",
-                "user": "xuyangchen",
-                "avatar": "xxxxx",
-                "action": "Create",
-                "did": "xxxxxxxxx",
-                "dname": "Test",
-                "timestamp": "xxxxxx"
-               }],
+            announcement:"",
+            history:[],
                
         }
     }
@@ -51,8 +37,27 @@ class Company extends React.Component {
                
             }
         }
-    
     )
+    KnowledgeServices.getHistory().then(res=>{
+        if(res.code==1){
+            this.setState({
+                history:res.data
+            })
+        }
+        else{
+           
+        }
+    })
+    UserService.getAnnouncement().then(res=>{
+        if(res.code==1){
+            this.setState({
+                announcement:res.data
+            })
+        }
+        else{
+           
+        }
+    })
     KnowledgeServices.getRecommend().then(
         res=>{
             if(res.code==1){
@@ -74,8 +79,9 @@ class Company extends React.Component {
             <Row className="home_page" >
             <Col span={12} className="home_first">
               <Row className="home_title">
-                <Row>Welcome to WIKI!</Row>
-                <Row>This is the team introduction. Can be edited by administrator.</Row>
+              <Row className="title">Announcement</Row>  
+                <Row>{this.state.announcement.content}</Row>
+                
               </Row>
               <Row className="member">
                   <Row className="title">Team Members</Row>
@@ -110,7 +116,7 @@ class Company extends React.Component {
               </Row>
             </Col>
             <Col span={12} style={{height:"100%"}} >
-              {userdata.role=="1"?              
+              {userdata.role=="3"?              
               <Row className="recommend" >
                     <Row className="title">Recommend Reading</Row>
                     <Row className="cardlist">
@@ -146,7 +152,7 @@ class Company extends React.Component {
                         <List
                                 className="list_file"
                                
-                                dataSource={this.state.actions}
+                                dataSource={this.state.history}
                                 renderItem={(item: any) => (
                                     <List.Item actions={[]}>
                                 <Row style={{width:"100%"}}> 

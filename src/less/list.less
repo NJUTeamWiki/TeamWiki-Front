@@ -1,13 +1,25 @@
 .list_file{
+    .file_a{
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+    }
     .list_name{
         display: inline-block;
-        width: 70%;
+        width: 64%;
+        text-overflow: ellipsis;
+        overflow: hidden;
         .img{
             width: 26px;
             height: 26px;
             vertical-align: bottom;
             margin-right: 8px;
         }
+    }
+    .list_item{
+        width: 18%;
+        display: inline-block;
+        vertical-align: top;
     }
     ul.ant-list-item-action {
         min-width: 60px;
@@ -38,6 +50,10 @@
             color: #322957;
             cursor: pointer;
         }
+    }
+    li.ant-list-item {
+        display: flex;
+        align-items: end;
     }
     .ant-list-item:last-child{
         border-bottom: 1px solid #e8e8e8;

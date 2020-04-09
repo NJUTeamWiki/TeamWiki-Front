@@ -67,7 +67,6 @@ const Content = ({ children }) => {
 };
 
 class Post extends React.Component{
-  
     render(){
        const {data} = this.props
         return(
@@ -85,6 +84,9 @@ class Post extends React.Component{
             ]}
             avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}>
             <Content >
+              {this.props.delete?
+              <Row className="delete_icon"><Icon type="delete" onClick={()=>{this.props.deleteaction(data.shareId)}}/></Row>  :""
+              }
               {content(data)}
             </Content>
           </PageHeader>

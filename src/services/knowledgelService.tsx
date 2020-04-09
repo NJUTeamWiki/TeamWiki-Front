@@ -82,7 +82,7 @@ export function getRecommend(){
     })
 }
 export function getHistory(){
-    return fetch(`${serverIP}/knowledge/recommend`, {
+    return fetch(`${serverIP}/document/activities`, {
         method: 'GET',
         mode: "cors",
         headers: new Headers({

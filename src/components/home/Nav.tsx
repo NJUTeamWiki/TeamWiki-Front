@@ -63,7 +63,7 @@ class Nav extends React.Component {
         case 'knowledge':
         return 'knowledge';
       default:
-        return 'home'
+        return ''
 
     }
   }
@@ -86,10 +86,12 @@ class Nav extends React.Component {
      const menu = (
       <Menu onClick={this.handleMenuClick}>
         <Menu.Item key="1" onClick={()=>{this.props.history.push('/home/userinfo')}}>Personal Center</Menu.Item>
-        <Menu.Item key="2" onClick={this.signout}>Sign Out</Menu.Item>
+        {this.state.userdata.role == "1" ?
+        <Menu.Item key="2" onClick={()=>{this.props.history.push('/home/admin')}}>Manage</Menu.Item>:""
+      }
+        <Menu.Item key="3" onClick={this.signout}>Sign Out</Menu.Item>
       </Menu>
     );
-        
     return (
     
       <Row className='nav' type="flex" align="middle">

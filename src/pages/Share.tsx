@@ -32,20 +32,31 @@ class Share extends React.Component {
             }
         })
     }
+    deleteShare = (id)=>{
+        ShareService.deleteShare(id).then(res=>{
+            if(res.code==1){
+                this.getShareList();
+                message.success(res.msg)
+            }
+            else{
+                message.error(res.msg)
+            }
+        })
+    }
     render() {
         const userId =JSON.parse(localStorage.getItem("user")).userId
         return (
             <Row className="share">
-            <Tabs defaultActiveKey="1" className="tabs" tabBarExtraContent={<ShareModal />}>
-            <TabPane tab="Hot Shares" key="1">
+            <Tabs defaultActiveKey="1" className="tabs" tabBarExtraContent={<ShareModal refresh={this.getShareList.bind(this)}/>}>
+            <TabPane tab="All Shares" key="1">
                 <Row className="content_share"> 
-                    {this.state.shareList&&this.state.shareList.map((item)=><Post data={item}/>)}
+                    {this.state.shareList&&this.state.shareList.map((item)=><Post delete={false} deleteaction={this.deleteShare.bind(this)} data={item}/>)}
                 </Row>
             </TabPane>
             <TabPane tab="My Shares" key="2">
                 <Row className="content_share">
                 <Row className="content_share"> 
-                    {this.state.shareList&&this.state.shareList.filter((item)=> item.shareUser==userId).map((item)=><Post data={item}/>)}
+                    {this.state.shareList&&this.state.shareList.filter((item)=> item.shareUser==userId).map((item)=><Post deleteaction={this.deleteShare.bind(this)} delete={true} data={item}/>)}
                 </Row>
                 </Row>
             </TabPane>

@@ -45,12 +45,13 @@ const Root = () => {
               <Route exact path="/home/share" component={Share} />
               <Route exact path="/home/userinfo" component={Userinfo} />
               <Route path="/home/portal" component={Link} />
+              <Route path={`/home/admin`} component={Admin}/>
               </Switch>
             </Home>
         } >
         </Route>
         <Route path={`/login`} component={Login}/>
-        <Route path={`/admin`} component={Admin}/>
+        
         <Route exact path={`/`} render={()=> <Redirect to={redirece()} /> }/>
         <Route path={`/register`} component={Register}/>   
       </HashRouter>

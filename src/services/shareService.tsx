@@ -53,3 +53,25 @@ export function createShare(data:any,cb){
         }
     })
 }
+export function deleteShare(data) {
+    return fetch(`${serverIP}/share?sid=${data}`, {
+        method: 'DELETE',
+        mode: "cors",
+        credentials: 'include',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+        }),
+        
+    }).then(res => res.json()).then((json) => {   
+        if(json.code==20001){
+            message.error("身份过期，请重新登录")
+            window.location.href="/#/login"
+        }
+        return json
+    }).catch((err) => {
+        return err
+    })
+   
+}

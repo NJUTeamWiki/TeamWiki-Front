@@ -164,3 +164,27 @@ export function updateUserRole(data){
         return err
     })
 }
+export function getAnnouncement(){
+    return fetch(`${serverIP}/admin/announcement`, {
+        method: 'GET',
+        credentials: 'include',
+        mode: "cors",
+        
+    }).then(res => res.json()).then((json) => {
+        return json
+    }).catch((err) => {
+        return err
+    })
+}
+export function changeAnnouncement(data){
+    return fetch(`${serverIP}/admin/announcement?content=${data}`, {
+        method: 'PUT',
+        credentials: 'include',
+        mode: "cors",
+        
+    }).then(res => res.json()).then((json) => {
+        return json
+    }).catch((err) => {
+        return err
+    })
+}

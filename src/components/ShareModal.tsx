@@ -2,12 +2,13 @@ import React from 'react'
 import {Row,Col,Modal,Button,Form} from 'antd'
 import { Upload, Icon, message,Input } from 'antd';
 import {serverIP} from '../utils/GlobalConstants.js'
-const { Dragger } = Upload;
 import * as uploadService from '../services/shareService'
 const { TextArea } = Input;
 class ShareModal extends React.Component{
     state = { visible: false,
-            fileList:[] };
+            fileList:[],
+            title:"",
+          content:"" };
     
     showModal = () => {
       this.setState({
@@ -22,11 +23,13 @@ class ShareModal extends React.Component{
       });
     };
     upload = ()=>{
-      let title = this.refs.title.state.value
-      let content = this.refs.content.state.value
-      if(this.refs.infile.files[0]&&title!=""&&content!=""){
+      const {fileList,title,content} = this.state;
+     
+      if(title!=""&&content!=""){
       var formdata = new FormData();
-      formdata.append("file",this.refs.infile.files[0]);
+      fileList.forEach(file => {
+        formdata.append('files', file);
+      });
       formdata.append("title",title);
       formdata.append("content",content)
       uploadService.createShare(formdata,(res)=>{
@@ -46,17 +49,28 @@ class ShareModal extends React.Component{
       message.error('Incomplete Content')
     }
     }
-    handleChange = info => {
-        let fileList = [...info.fileList];
     
-        // 1. Limit the number of uploaded files
-        // Only to show two recent uploaded files, and old ones will be replaced by the new
-        fileList = fileList.slice(-1);
-    
-    
-        this.setState({ fileList });
-      };
     render(){
+      const {  fileList } = this.state;
+      const props = {
+        onRemove: file => {
+          this.setState(state => {
+            const index = state.fileList.indexOf(file);
+            const newFileList = state.fileList.slice();
+            newFileList.splice(index, 1);
+            return {
+              fileList: newFileList,
+            };
+          });
+        },
+        beforeUpload: file => {
+          this.setState(state => ({
+            fileList: [...state.fileList, file],
+          }));
+          return false;
+        },
+        fileList,
+      };
         const formItemLayout = {
             labelCol: {
               xs: { span: 24 },
@@ -67,7 +81,7 @@ class ShareModal extends React.Component{
               sm: { span: 18 },
             },
           };
-        const {  fileList } = this.state;
+       
         return(
             <Row className="upload_modal">   
                 <Button type="primary" onClick={this.showModal}>
@@ -83,16 +97,30 @@ class ShareModal extends React.Component{
                  <Form {...formItemLayout}>
                    <Form.Item label="Title"
                    >
-                    <Input  ref="title"/>
+                    <Input  ref="title" onChange={(e)=>{this.setState({title:e.target.value})}}/>
                       </Form.Item>
                       <Form.Item label="Content"
                       >
-                      <TextArea ref="content" 
+                      <TextArea ref="content"  onChange={(e)=>{this.setState({content:e.target.value})}}
                        autoSize={{ minRows: 8, maxRows: 10 }} />
                       </Form.Item>
                       <Form.Item label="File"
                       >
-                        <input ref='infile' style={{lineHeight:"22px",marginTop:"5px"}} type="file" />
+                        {/* <Dragger {...props}>
+                            <p className="ant-upload-drag-icon">
+                             
+                            </p>
+                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                            <p className="ant-upload-hint">
+                              Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+                              band files
+                            </p>
+                          </Dragger> */}
+                           <Upload {...props}>
+                                <Button>
+                                  Select File
+                                </Button>
+                              </Upload>
                       </Form.Item>
                       </Form>
                       

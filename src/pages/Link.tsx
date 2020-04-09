@@ -89,7 +89,7 @@ class Link extends React.Component {
       // <Router>
        <Row className="link">
            <Row className="rowitem">
-             <Col span={6} className="portal" >
+             {/* <Col span={6} className="portal" >
                <div className="box shadow">
                <a href="http://github.com" target="_blank">
                <div className="imageRow">
@@ -145,7 +145,7 @@ class Link extends React.Component {
                </a>
                </div>
                
-             </Col>
+             </Col> */}
              {this.state.portallist&&this.state.portallist.map((item)=>
                <Col span={6} className="portal" >
               

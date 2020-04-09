@@ -3,7 +3,7 @@ import React from 'react'
 const { Paragraph } = Typography;
 import {serverIP} from '../utils/GlobalConstants.js'
 const IconLink = ({href, src, text,preview }) => (
-  <Row>
+  <Row style={{marginRight:10}}>
   <a
     style={{
       marginRight: 16,
